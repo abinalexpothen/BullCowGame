@@ -9,7 +9,7 @@
 #ifndef FBullCowGame_hpp
 #define FBullCowGame_hpp
 
-#include <stdio.h>
+#include <iostream>
 
 #endif /* FBullCowGame_hpp */
 
@@ -23,6 +23,9 @@ public:
     void ProvideClue(); // TODO provide a clue by revealing one of the minimum
     void PrintRules(); // TODO display the rules of the game
     int ModifyMaxTries(); // TODO Customize the current maximum number of tries
+    
+    bool IsGameWon();
+    bool CheckGuessValidity(); // TODO return a more rich return value
     
     
 // please try and ignore this; focus on iterface
