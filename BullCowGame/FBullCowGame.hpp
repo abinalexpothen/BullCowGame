@@ -9,9 +9,7 @@
 #ifndef FBullCowGame_hpp
 #define FBullCowGame_hpp
 
-#include <iostream>
-
-#endif /* FBullCowGame_hpp */
+#include <string>
 
 class FBullCowGame
 {
@@ -23,14 +21,15 @@ public:
     void ProvideClue(); // TODO provide a clue by revealing one of the minimum
     void PrintRules(); // TODO display the rules of the game
     int ModifyMaxTries(); // TODO Customize the current maximum number of tries
-    
     bool IsGameWon();
-    bool CheckGuessValidity(); // TODO return a more rich return value
+    bool CheckGuessValidity(std::string); // TODO return a more rich return value
     
     
 // please try and ignore this; focus on iterface
 private:
     int MyCurrentTry;
     int MyMaxTries;
-    bool IsIsogram(string);
+    bool IsIsogram(std::string);
 };
+
+#endif /* FBullCowGame_hpp */
