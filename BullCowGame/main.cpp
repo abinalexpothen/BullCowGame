@@ -14,10 +14,14 @@ void PlayGame();
 std::string GetGuess();
 bool AskToPlayAgain();
 
+FBullCowGame BCGame; // instantiate a new game
+
 
 // entry point of the code
 int main()
 {
+    BCGame.Reset();
+    std::cout << BCGame.GetMaxTries();
     bool bPlayAgain = false;
     do
     {
@@ -35,8 +39,8 @@ void PrintIntro()
 {
     constexpr int WORD_LENGTH = 5;
     std::cout << "Welcome to bulls and Cows, a fun word game!\n";
-    std::cout << "Can you think of an " << WORD_LENGTH;
-    std::cout << " letter isogram that I am thinking of?\n";
+    std::cout << "Can you think of a " << WORD_LENGTH;
+    std::cout << " letter isogram that I am thinking of?\n\n";
     return;
 }
 
@@ -44,12 +48,10 @@ void PrintIntro()
 // play game
 void PlayGame()
 {
-    FBullCowGame Player1Game; // instantiate a new game
-    FBullCowGame Player2Game;
+    int MaxTries = BCGame.GetMaxTries();
     
-    constexpr int NUMBER_OF_TURNS = 5;
     // loop for the number of turns to guess the word
-    for(int count = 1; count <= NUMBER_OF_TURNS; count++)
+    for(int count = 1; count <= MaxTries; count++)
     {
         std::string Guess = GetGuess();
         
@@ -63,7 +65,11 @@ void PlayGame()
 // get a guess from the player
 std::string GetGuess()
 {
+    int CurrentTry = BCGame.GetCurrentTry();
+    
+    // get a guess from the player
     std::string Guess = "";
+    std::cout << "Try " << CurrentTry << ". Enter your guess: ";
     std::getline(std::cin, Guess);
     return Guess;
 }

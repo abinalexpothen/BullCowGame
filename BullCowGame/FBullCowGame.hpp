@@ -11,25 +11,24 @@
 
 #include <string>
 
-class FBullCowGame
-{
+class FBullCowGame {
 public:
+    FBullCowGame(); // constructor
+    
+    int GetMaxTries() const; // TODO print out the maximum number of tries
+    int GetCurrentTry() const; // TODO print the current try
+    bool IsGameWon() const;
+    
     void Reset(); // TODO make a more rich return value
-    int GetMaxTries(); // TODO print out the maximum number of tries
-    int GetCurrentTry(); // TODO print the current try
-    void PlayGame(); // TODO play the game with the current try till the maximum try
-    void ProvideClue(); // TODO provide a clue by revealing one of the minimum
-    void PrintRules(); // TODO display the rules of the game
-    int ModifyMaxTries(); // TODO Customize the current maximum number of tries
-    bool IsGameWon();
-    bool CheckGuessValidity(std::string); // TODO return a more rich return value
+    bool CheckGuessValidity(std::string) const; // TODO return a more rich return value
     
     
 // please try and ignore this; focus on iterface
 private:
     int MyCurrentTry;
     int MyMaxTries;
-    bool IsIsogram(std::string);
+    
+    bool IsIsogram(std::string) const;
 };
 
 #endif /* FBullCowGame_hpp */
