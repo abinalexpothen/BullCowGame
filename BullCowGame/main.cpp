@@ -15,13 +15,13 @@ void PrintIntro();
 void PlayGame();
 FText GetValidGuess();
 bool AskToPlayAgain();
+void PrintGameSummary();
 
 FBullCowGame BCGame; // instantiate a new game
 
 // entry point of the code
 int main()
 {
-    BCGame.Reset();
     bool bPlayAgain = false;
     do
     {
@@ -37,7 +37,7 @@ int main()
 // introduce the game
 void PrintIntro()
 {
-    std::cout << "Welcome to Bulls and Cows, a fun word game!\n";
+    std::cout << "\n\nWelcome to Bulls and Cows, a fun word game!\n";
     std::cout << "Can you think of a " << BCGame.GetHiddenWordLength();
     std::cout << " letter isogram that I am thinking of?\n\n";
     return;
@@ -47,20 +47,25 @@ void PrintIntro()
 // play game
 void PlayGame()
 {
+    BCGame.Reset();
+    
     int32 MaxTries = BCGame.GetMaxTries();
     
-    // loop for the number of turns to guess the word
-    for(int32 count = 1; count <= MaxTries; count++) // TODO: change to a while loop
+    // loop while the game is NOT won and there are tries still remaining
+    while(!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries)
     {
         FText Guess = GetValidGuess();
         
-        FBullCowCount BullCowCount = BCGame.SubmitGuess(Guess);
-
+        // submit valid guess and receive counts
+        FBullCowCount BullCowCount = BCGame.SubmitValidGuess(Guess);
+        
         std::cout << "Bulls = " << BullCowCount.Bulls;
         std::cout << ". Cows = " << BullCowCount.Cows << "\n\n";
     }
     
-    // TODO: Add a game summary
+    PrintGameSummary();
+    
+    return;
 }
 
 
@@ -103,8 +108,23 @@ FText GetValidGuess()
 
 bool AskToPlayAgain()
 {
-    std::cout << "Do you want to play again? (y/n) " << std::endl;
+    std::cout << "Do you want to play again with the same hidden word? (y/n) " << std::endl;
     FText Response = "";
     std::getline(std::cin, Response);
     return (Response[0] == 'y') || (Response[0] == 'Y');
 }
+
+void PrintGameSummary()
+{
+    if (BCGame.IsGameWon())
+    {
+        std::cout << "Congratulations! You won the game!";
+    }
+    else
+    {
+        std::cout << "Oops ... You ran out of tries. Better luck next time.";
+    }
+    std::cout << "\n\n";
+    
+}
+
