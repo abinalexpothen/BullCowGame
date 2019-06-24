@@ -1,16 +1,15 @@
-//
-//  FBullCowGame.hpp
-//  BullCowGame
-//
+/* The game logic (no view code or direct user interaction)
+ The game is a simple guess the word based on mastermind*/
 //  Created by Abin Alex Pothen on 2018-12-22.
-//  Copyright © 2018 Abin Alex Pothen. All rights reserved.
-//
+
+#pragma once
 
 #ifndef FBullCowGame_hpp
 #define FBullCowGame_hpp
 
 #include <string>
 
+// to make syntax Unreal friendly
 using FString = std::string;
 using int32 = int;
 
@@ -40,19 +39,17 @@ public:
     bool IsGameWon() const;
     EGuessStatus CheckGuessValidity(FString) const;
     
-    void Reset(); // TODO return a more rich return value
+    void Reset();
     FBullCowCount SubmitValidGuess(FString);
     
-// please try and ignore this and focus on interface ^^
 private:
-    // see constructor for initialization
     int32 MyCurrentTry;
-    int32 MyMaxTries;
     FString MyHiddenWord;
     bool bGameIsWon;
     
-    // private member function
+    // private member functions
     bool IsIsogram(FString) const;
+    bool IsLowercase(FString) const;
 };
 
 #endif /* FBullCowGame_hpp */
