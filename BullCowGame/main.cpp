@@ -4,8 +4,6 @@
  */
 //  Created by Abin Alex Pothen on 2018-12-01.
 
-#pragma once
-
 #include <iostream>
 #include "FBullCowGame.hpp"
 
@@ -15,7 +13,9 @@ using int32 = int;
 
 // function prototypes as outside a class
 void PrintIntro();
+void InitGame();
 void PlayGame();
+int32 GetValidLength();
 FText GetValidGuess();
 bool AskToPlayAgain();
 void PrintGameSummary();
@@ -29,6 +29,7 @@ int main()
     do
     {
         PrintIntro();
+        InitGame();
         PlayGame();
         bPlayAgain = AskToPlayAgain();
     }
@@ -49,18 +50,38 @@ void PrintIntro()
     std::cout << "    \\    /           \\ /\n";
     std::cout << "     (__)            (_) \n";
     std::cout << std::endl;
-    std::cout << "Can you think of a " << BCGame.GetHiddenWordLength();
-    std::cout << " letter isogram that I am thinking of?\n\n";
     return;
+}
+
+// obtains a valid word length from user and updates hidden word in BCGame
+void InitGame()
+{
+    BCGame.Reset();
+    BCGame.SetHiddenWord(GetValidLength());
+}
+
+
+int32 GetValidLength()
+{
+    int32 WordLength = 0;
+    
+    do {
+        // ask user to enter the word length between 3 to 6
+        std::cout << "Choose a word length between 3 to 6 for the hidden word: ";
+        std::cin >> WordLength;
+        std::cin.get(); // catch the '\n'
+        std::cout << "\n";
+    } while( WordLength < 3 || WordLength > 6 );
+    
+    return WordLength;
 }
 
 // plays a single game to completion
 void PlayGame()
 {
-    BCGame.Reset();
+    std::cout << "Can you enter a " << BCGame.GetHiddenWordLength() << " letter word I am thinking of?\n\n";
     
     int32 MaxTries = BCGame.GetMaxTries();
-    
     // loop while the game is NOT won and there are tries still remaining
     while(!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries)
     {
@@ -118,7 +139,7 @@ FText GetValidGuess()
 
 bool AskToPlayAgain()
 {
-    std::cout << "Do you want to play again with the same hidden word? (y/n) " << std::endl;
+    std::cout << "Do you want to play again? (y/n) " << std::endl;
     FText Response = "";
     std::getline(std::cin, Response);
     return (Response[0] == 'y') || (Response[0] == 'Y');

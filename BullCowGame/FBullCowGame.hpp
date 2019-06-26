@@ -41,6 +41,7 @@ public:
     
     void Reset();
     FBullCowCount SubmitValidGuess(FString);
+    void SetHiddenWord(int32);
     
 private:
     int32 MyCurrentTry;

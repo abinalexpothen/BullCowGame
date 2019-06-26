@@ -1,5 +1,3 @@
-#pragma once
-
 #include "FBullCowGame.hpp"
 #include <map>
 
@@ -23,9 +21,7 @@ int32 FBullCowGame::GetMaxTries() const
 // public methods
 void FBullCowGame::Reset()
 {
-    const FString HIDDEN_WORD = "plan"; // this MUST be an isogram
-    MyHiddenWord = HIDDEN_WORD;
-    
+    SetHiddenWord(3); // set 3 letter word as default
     MyCurrentTry = 1;
     bGameIsWon = false;
     return;
@@ -117,3 +113,10 @@ bool FBullCowGame::IsLowercase(FString Word) const
     }
     return true;
 }
+
+void FBullCowGame::SetHiddenWord(int32 WordLength)
+{
+    TMap<int32, FString> WordList { {3,"ant"}, {4,"tram"}, {5,"plant"}, {6,"planet"} }; // words MUST be an isogram
+    MyHiddenWord = WordList[WordLength];
+}
+
